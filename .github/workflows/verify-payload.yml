@@ -1,0 +1,41 @@
+name: Verify Payload
+
+on:
+  workflow_dispatch:
+    inputs:
+      chainId:
+        description: "Chain ID"
+        required: true
+      transactionHash:
+        description: "Transaction Hash"
+        required: true
+      chainAlias:
+        description: "Chain Alias"
+        required: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Pull latest changes
+        run: git pull origin main
+
+      - name: Create verify.json
+        run: |
+          cat <<EOF > verify.json
+          {
+            "transactions": [
+              {
+                "hash": "${{ github.event.inputs.transactionHash }}"
+              }
+            ],
+            "chain": ${{ github.event.inputs.chainId }}
+          }
+          EOF
+
+      - name: Run verification command
+        run: FOUNDRY_PROFILE=${{ github.event.inputs.chainAlias }} npx catapulta-verify -b verify.json
