@@ -29,6 +29,9 @@ jobs:
       - name: Install dependencies yarn
         run: yarn install
 
+      - name: Install foundry
+        uses: foundry-rs/foundry-toolchain@v1
+
       - name: Install forge dependencies
         run: forge install
 
