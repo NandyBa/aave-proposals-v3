@@ -20,9 +20,11 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+        with:
+          ref: main
 
       - name: Pull latest changes
-        run: git pull origin main
+        run: git config pull.ff only && git pull origin main
 
       - name: Create verify.json
         run: |
