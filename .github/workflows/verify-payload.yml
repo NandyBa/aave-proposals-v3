@@ -19,6 +19,8 @@ jobs:
     env:
       ETHERSCAN_API_KEY: ${{ secrets.ETHERSCAN_API_KEY }}
       RPC_AVALANCHE: ${{ secrets.RPC_AVALANCHE }}
+      RPC_BNB: ${{ secrets.RPC_BNB }}
+      RPC_METIS: ${{ secrets.RPC_METIS }}
 
     steps:
       - name: Checkout repository
